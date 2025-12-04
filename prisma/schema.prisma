@@ -23,7 +23,10 @@ model User {
   lastLoginAt       DateTime @default(now())
   isLocationVisible Boolean  @default(true)
 
-  refreshTokens RefreshToken[]
+  refreshTokens        RefreshToken[]
+  friendshipsRequested Friendship[]   @relation("FriendshipRequester")
+  friendshipsReceived  Friendship[]   @relation("FriendshipAddressee")
+  qrToken              QrToken?
 }
 
 model RefreshToken {
@@ -32,6 +35,34 @@ model RefreshToken {
   token     String   @unique
   createdAt DateTime @default(now())
   revoked   Boolean  @default(false)
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Friendship {
+  id          String           @id @default(uuid())
+  requesterId String
+  addresseeId String
+  status      FriendshipStatus
+  createdAt   DateTime         @default(now())
+
+  requester User @relation("FriendshipRequester", fields: [requesterId], references: [id])
+  addressee User @relation("FriendshipAddressee", fields: [addresseeId], references: [id])
+
+  @@unique([requesterId, addresseeId])
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  BLOCKED
+}
+
+model QrToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String   @unique
+  createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
 }

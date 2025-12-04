@@ -38,7 +38,11 @@ export class AuthService {
     }
   }
 
-  async validateOrCreateUser(googleProfile: { email: string; name: string; picture?: string }) {
+  async validateOrCreateUser(googleProfile: {
+    email: string;
+    name: string;
+    picture?: string;
+  }) {
     let user = await this.usersService.findByEmail(googleProfile.email);
     if (!user) {
       user = await this.usersService.createUser({
@@ -57,7 +61,7 @@ export class AuthService {
 
     const accessToken = this.jwtService.sign(payload, {
       secret: process.env.JWT_ACCESS_SECRET,
-      expiresIn: '15m',
+      expiresIn: '1d',
     });
 
     const refreshToken = this.jwtService.sign(payload, {

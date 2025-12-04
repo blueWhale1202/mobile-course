@@ -199,6 +199,9 @@ export type UserWhereInput = {
   lastLoginAt?: Prisma.DateTimeFilter<"User"> | Date | string
   isLocationVisible?: Prisma.BoolFilter<"User"> | boolean
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  friendshipsRequested?: Prisma.FriendshipListRelationFilter
+  friendshipsReceived?: Prisma.FriendshipListRelationFilter
+  qrToken?: Prisma.XOR<Prisma.QrTokenNullableScalarRelationFilter, Prisma.QrTokenWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -210,6 +213,9 @@ export type UserOrderByWithRelationInput = {
   lastLoginAt?: Prisma.SortOrder
   isLocationVisible?: Prisma.SortOrder
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
+  friendshipsRequested?: Prisma.FriendshipOrderByRelationAggregateInput
+  friendshipsReceived?: Prisma.FriendshipOrderByRelationAggregateInput
+  qrToken?: Prisma.QrTokenOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -224,6 +230,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   lastLoginAt?: Prisma.DateTimeFilter<"User"> | Date | string
   isLocationVisible?: Prisma.BoolFilter<"User"> | boolean
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  friendshipsRequested?: Prisma.FriendshipListRelationFilter
+  friendshipsReceived?: Prisma.FriendshipListRelationFilter
+  qrToken?: Prisma.XOR<Prisma.QrTokenNullableScalarRelationFilter, Prisma.QrTokenWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -261,6 +270,9 @@ export type UserCreateInput = {
   lastLoginAt?: Date | string
   isLocationVisible?: boolean
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  friendshipsRequested?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  qrToken?: Prisma.QrTokenCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -272,6 +284,9 @@ export type UserUncheckedCreateInput = {
   lastLoginAt?: Date | string
   isLocationVisible?: boolean
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  friendshipsRequested?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  qrToken?: Prisma.QrTokenUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -283,6 +298,9 @@ export type UserUpdateInput = {
   lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  friendshipsRequested?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  qrToken?: Prisma.QrTokenUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -294,6 +312,9 @@ export type UserUncheckedUpdateInput = {
   lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsRequested?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  qrToken?: Prisma.QrTokenUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -391,6 +412,48 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
+export type UserCreateNestedOneWithoutFriendshipsRequestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendshipsRequestedInput, Prisma.UserUncheckedCreateWithoutFriendshipsRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendshipsRequestedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutFriendshipsReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendshipsReceivedInput, Prisma.UserUncheckedCreateWithoutFriendshipsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendshipsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFriendshipsRequestedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendshipsRequestedInput, Prisma.UserUncheckedCreateWithoutFriendshipsRequestedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendshipsRequestedInput
+  upsert?: Prisma.UserUpsertWithoutFriendshipsRequestedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFriendshipsRequestedInput, Prisma.UserUpdateWithoutFriendshipsRequestedInput>, Prisma.UserUncheckedUpdateWithoutFriendshipsRequestedInput>
+}
+
+export type UserUpdateOneRequiredWithoutFriendshipsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendshipsReceivedInput, Prisma.UserUncheckedCreateWithoutFriendshipsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendshipsReceivedInput
+  upsert?: Prisma.UserUpsertWithoutFriendshipsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFriendshipsReceivedInput, Prisma.UserUpdateWithoutFriendshipsReceivedInput>, Prisma.UserUncheckedUpdateWithoutFriendshipsReceivedInput>
+}
+
+export type UserCreateNestedOneWithoutQrTokenInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutQrTokenInput, Prisma.UserUncheckedCreateWithoutQrTokenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutQrTokenInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutQrTokenNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutQrTokenInput, Prisma.UserUncheckedCreateWithoutQrTokenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutQrTokenInput
+  upsert?: Prisma.UserUpsertWithoutQrTokenInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutQrTokenInput, Prisma.UserUpdateWithoutQrTokenInput>, Prisma.UserUncheckedUpdateWithoutQrTokenInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   email: string
@@ -399,6 +462,9 @@ export type UserCreateWithoutRefreshTokensInput = {
   createdAt?: Date | string
   lastLoginAt?: Date | string
   isLocationVisible?: boolean
+  friendshipsRequested?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  qrToken?: Prisma.QrTokenCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -409,6 +475,9 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   createdAt?: Date | string
   lastLoginAt?: Date | string
   isLocationVisible?: boolean
+  friendshipsRequested?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  qrToken?: Prisma.QrTokenUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -435,6 +504,9 @@ export type UserUpdateWithoutRefreshTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  friendshipsRequested?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  qrToken?: Prisma.QrTokenUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -445,6 +517,213 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  friendshipsRequested?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  qrToken?: Prisma.QrTokenUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutFriendshipsRequestedInput = {
+  id?: string
+  email: string
+  displayName: string
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  lastLoginAt?: Date | string
+  isLocationVisible?: boolean
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  qrToken?: Prisma.QrTokenCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFriendshipsRequestedInput = {
+  id?: string
+  email: string
+  displayName: string
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  lastLoginAt?: Date | string
+  isLocationVisible?: boolean
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  qrToken?: Prisma.QrTokenUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFriendshipsRequestedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendshipsRequestedInput, Prisma.UserUncheckedCreateWithoutFriendshipsRequestedInput>
+}
+
+export type UserCreateWithoutFriendshipsReceivedInput = {
+  id?: string
+  email: string
+  displayName: string
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  lastLoginAt?: Date | string
+  isLocationVisible?: boolean
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  friendshipsRequested?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  qrToken?: Prisma.QrTokenCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
+  id?: string
+  email: string
+  displayName: string
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  lastLoginAt?: Date | string
+  isLocationVisible?: boolean
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  friendshipsRequested?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  qrToken?: Prisma.QrTokenUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFriendshipsReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendshipsReceivedInput, Prisma.UserUncheckedCreateWithoutFriendshipsReceivedInput>
+}
+
+export type UserUpsertWithoutFriendshipsRequestedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFriendshipsRequestedInput, Prisma.UserUncheckedUpdateWithoutFriendshipsRequestedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendshipsRequestedInput, Prisma.UserUncheckedCreateWithoutFriendshipsRequestedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFriendshipsRequestedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFriendshipsRequestedInput, Prisma.UserUncheckedUpdateWithoutFriendshipsRequestedInput>
+}
+
+export type UserUpdateWithoutFriendshipsRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  qrToken?: Prisma.QrTokenUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFriendshipsRequestedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  qrToken?: Prisma.QrTokenUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutFriendshipsReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFriendshipsReceivedInput, Prisma.UserUncheckedUpdateWithoutFriendshipsReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendshipsReceivedInput, Prisma.UserUncheckedCreateWithoutFriendshipsReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFriendshipsReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFriendshipsReceivedInput, Prisma.UserUncheckedUpdateWithoutFriendshipsReceivedInput>
+}
+
+export type UserUpdateWithoutFriendshipsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  friendshipsRequested?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  qrToken?: Prisma.QrTokenUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsRequested?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  qrToken?: Prisma.QrTokenUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutQrTokenInput = {
+  id?: string
+  email: string
+  displayName: string
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  lastLoginAt?: Date | string
+  isLocationVisible?: boolean
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  friendshipsRequested?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+}
+
+export type UserUncheckedCreateWithoutQrTokenInput = {
+  id?: string
+  email: string
+  displayName: string
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  lastLoginAt?: Date | string
+  isLocationVisible?: boolean
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  friendshipsRequested?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+}
+
+export type UserCreateOrConnectWithoutQrTokenInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutQrTokenInput, Prisma.UserUncheckedCreateWithoutQrTokenInput>
+}
+
+export type UserUpsertWithoutQrTokenInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutQrTokenInput, Prisma.UserUncheckedUpdateWithoutQrTokenInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutQrTokenInput, Prisma.UserUncheckedCreateWithoutQrTokenInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutQrTokenInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutQrTokenInput, Prisma.UserUncheckedUpdateWithoutQrTokenInput>
+}
+
+export type UserUpdateWithoutQrTokenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  friendshipsRequested?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+}
+
+export type UserUncheckedUpdateWithoutQrTokenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLoginAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isLocationVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsRequested?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
 }
 
 
@@ -454,10 +733,14 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
 
 export type UserCountOutputType = {
   refreshTokens: number
+  friendshipsRequested: number
+  friendshipsReceived: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
+  friendshipsRequested?: boolean | UserCountOutputTypeCountFriendshipsRequestedArgs
+  friendshipsReceived?: boolean | UserCountOutputTypeCountFriendshipsReceivedArgs
 }
 
 /**
@@ -477,6 +760,20 @@ export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Ty
   where?: Prisma.RefreshTokenWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFriendshipsRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendshipWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFriendshipsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendshipWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -487,6 +784,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   lastLoginAt?: boolean
   isLocationVisible?: boolean
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  friendshipsRequested?: boolean | Prisma.User$friendshipsRequestedArgs<ExtArgs>
+  friendshipsReceived?: boolean | Prisma.User$friendshipsReceivedArgs<ExtArgs>
+  qrToken?: boolean | Prisma.User$qrTokenArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -523,6 +823,9 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "displayName" | "avatarUrl" | "createdAt" | "lastLoginAt" | "isLocationVisible", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  friendshipsRequested?: boolean | Prisma.User$friendshipsRequestedArgs<ExtArgs>
+  friendshipsReceived?: boolean | Prisma.User$friendshipsReceivedArgs<ExtArgs>
+  qrToken?: boolean | Prisma.User$qrTokenArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -532,6 +835,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
+    friendshipsRequested: Prisma.$FriendshipPayload<ExtArgs>[]
+    friendshipsReceived: Prisma.$FriendshipPayload<ExtArgs>[]
+    qrToken: Prisma.$QrTokenPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -936,6 +1242,9 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  friendshipsRequested<T extends Prisma.User$friendshipsRequestedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendshipsRequestedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  friendshipsReceived<T extends Prisma.User$friendshipsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendshipsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  qrToken<T extends Prisma.User$qrTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$qrTokenArgs<ExtArgs>>): Prisma.Prisma__QrTokenClient<runtime.Types.Result.GetResult<Prisma.$QrTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1381,6 +1690,73 @@ export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
+}
+
+/**
+ * User.friendshipsRequested
+ */
+export type User$friendshipsRequestedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Friendship
+   */
+  select?: Prisma.FriendshipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Friendship
+   */
+  omit?: Prisma.FriendshipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendshipInclude<ExtArgs> | null
+  where?: Prisma.FriendshipWhereInput
+  orderBy?: Prisma.FriendshipOrderByWithRelationInput | Prisma.FriendshipOrderByWithRelationInput[]
+  cursor?: Prisma.FriendshipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendshipScalarFieldEnum | Prisma.FriendshipScalarFieldEnum[]
+}
+
+/**
+ * User.friendshipsReceived
+ */
+export type User$friendshipsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Friendship
+   */
+  select?: Prisma.FriendshipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Friendship
+   */
+  omit?: Prisma.FriendshipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendshipInclude<ExtArgs> | null
+  where?: Prisma.FriendshipWhereInput
+  orderBy?: Prisma.FriendshipOrderByWithRelationInput | Prisma.FriendshipOrderByWithRelationInput[]
+  cursor?: Prisma.FriendshipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendshipScalarFieldEnum | Prisma.FriendshipScalarFieldEnum[]
+}
+
+/**
+ * User.qrToken
+ */
+export type User$qrTokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QrToken
+   */
+  select?: Prisma.QrTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QrToken
+   */
+  omit?: Prisma.QrTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QrTokenInclude<ExtArgs> | null
+  where?: Prisma.QrTokenWhereInput
 }
 
 /**

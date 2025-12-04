@@ -27,3 +27,13 @@ export type User = Prisma.UserModel
  * 
  */
 export type RefreshToken = Prisma.RefreshTokenModel
+/**
+ * Model Friendship
+ * 
+ */
+export type Friendship = Prisma.FriendshipModel
+/**
+ * Model QrToken
+ * 
+ */
+export type QrToken = Prisma.QrTokenModel
