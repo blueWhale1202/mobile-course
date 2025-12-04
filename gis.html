@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Test Google Auth → NestJS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 720px;
+            margin: 32px auto;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+        }
+
+        .row {
+            margin: 12px 0;
+        }
+
+        pre {
+            background: #f6f6f6;
+            padding: 12px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Google Sign-In → NestJS</h1>
+
+    <div class="row">
+        <label>Backend URL (NestJS):</label>
+        <input id="backendUrl" value="http://localhost:3000/auth/google" />
+    </div>
+
+    <div class="row">
+        <label>Google Client ID (Web application):</label>
+        <input id="clientId" value="579465096554-fars9h9dcn40vk5j009v26cn2306j53r.apps.googleusercontent.com" />
+    </div>
+
+    <!-- GIS onload config -->
+    <div id="g_id_onload" data-client_id="" data-auto_prompt="false" data-callback="handleCredentialResponse"></div>
+
+    <!-- Nút Sign in -->
+    <div class="row">
+        <div class="g_id_signin" data-type="standard" data-size="large"></div>
+    </div>
+
+    <div class="row">
+        <label>ID Token (JWT) nhận từ Google:</label>
+        <textarea id="idToken" rows="6" readonly placeholder="Nhấn Sign in để nhận token"></textarea>
+    </div>
+
+    <div class="row">
+        <button id="sendBtn">Gửi tới /auth/google</button>
+    </div>
+
+    <div class="row">
+        <label>Kết quả từ server:</label>
+        <pre id="result">—</pre>
+    </div>
+
+    <script>
+        // điền client_id động vào #g_id_onload khi người dùng nhập
+        const clientIdInput = document.getElementById('clientId');
+        const onloadDiv = document.getElementById('g_id_onload');
+
+        function setClientIdAttr() {
+            onloadDiv.setAttribute('data-client_id', clientIdInput.value.trim());
+            // re-render button nếu cần
+            if (window.google && google.accounts && google.accounts.id) {
+                google.accounts.id.initialize({
+                    client_id: clientIdInput.value.trim(),
+                    callback: handleCredentialResponse,
+                    auto_select: false,
+                });
+                google.accounts.id.renderButton(
+                    document.querySelector('.g_id_signin'),
+                    { type: 'standard', size: 'large' }
+                );
+            }
+        }
+        clientIdInput.addEventListener('change', setClientIdAttr);
+        window.addEventListener('load', setClientIdAttr);
+
+        // nhận ID token từ Google
+        function handleCredentialResponse(res) {
+            const jwt = res && res.credential;
+            document.getElementById('idToken').value = jwt || '';
+            if (!jwt) console.warn('No credential received');
+        }
+
+        // gửi ID token tới backend
+        document.getElementById('sendBtn').addEventListener('click', async () => {
+            const url = document.getElementById('backendUrl').value.trim();
+            const idToken = document.getElementById('idToken').value.trim();
+            const out = document.getElementById('result');
+            out.textContent = 'Đang gửi...';
+
+            try {
+                const r = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idToken }),
+                });
+                const data = await r.json();
+                out.textContent = JSON.stringify(data, null, 2);
+            } catch (e) {
+                out.textContent = String(e);
+            }
+        });
+    </script>
+</body>
+
+</html>
