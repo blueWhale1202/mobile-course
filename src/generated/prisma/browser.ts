@@ -37,3 +37,13 @@ export type Friendship = Prisma.FriendshipModel
  * 
  */
 export type QrToken = Prisma.QrTokenModel
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model ConversationParticipant
+ * 
+ */
+export type ConversationParticipant = Prisma.ConversationParticipantModel
