@@ -19,6 +19,14 @@ export class ConversationsService {
       );
     }
 
+    const targetUser = await this.prisma.user.findUnique({
+      where: { id: targetUserId },
+    });
+
+    if (!targetUser) {
+      throw new NotFoundException('Target user not found');
+    }
+
     const existing = await this.prisma.conversation.findFirst({
       where: {
         isGroup: false,
@@ -64,10 +72,24 @@ export class ConversationsService {
     title: string | undefined,
     memberIds: string[],
   ) {
-    const allMemberIds = Array.from(new Set([currentUserId, ...memberIds])); // unique
+    const allMemberIds = Array.from(new Set([currentUserId, ...memberIds]));
 
     if (allMemberIds.length < 2) {
       throw new BadRequestException('Group must have at least 2 members');
+    }
+
+    const users = await this.prisma.user.findMany({
+      where: { id: { in: allMemberIds } },
+      select: { id: true },
+    });
+
+    const foundIds = new Set(users.map((u) => u.id));
+    const missingIds = allMemberIds.filter((id) => !foundIds.has(id));
+
+    if (missingIds.length > 0) {
+      throw new NotFoundException(
+        `Some users do not exist: ${missingIds.join(', ')}`,
+      );
     }
 
     const conversation = await this.prisma.conversation.create({
